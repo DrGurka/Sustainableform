@@ -4,7 +4,7 @@ import json
 
 from typing import List
 from flask.helpers import make_response
-from . import db
+import db
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )

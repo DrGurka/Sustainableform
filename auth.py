@@ -10,8 +10,8 @@ from flask.wrappers import Request
 import pymysql
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from Website.common import Answer
-from . import db
+from common import Answer
+import db
 
 bp = Blueprint('auth', __name__, url_prefix='/')
 
@@ -195,8 +195,3 @@ def adminLoggedIn():
 
 
     return render_template("Admin-html/admin-index.html")
-
-
-
-            
-

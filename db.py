@@ -1,4 +1,3 @@
-
 from flask.helpers import url_for
 from flaskext.mysql import MySQL
 from flask import current_app, g
@@ -8,10 +7,10 @@ import click
 def get_db():
     if'db' not in g:
         mysql=MySQL()
-        current_app.config['MYSQL_DATABASE_USER'] = 'developer'
-        current_app.config['MYSQL_DATABASE_PASSWORD'] = 'Developer'
+        current_app.config['MYSQL_DATABASE_USER'] = 'flask'
+        current_app.config['MYSQL_DATABASE_PASSWORD'] = '827ccb0eea8a706c4c34a16891f84e7b'
         current_app.config['MYSQL_DATABASE_DB'] = 'Sustainableform'
-        current_app.config['MYSQL_DATABASE_HOST'] = '85.225.90.155'
+        current_app.config['MYSQL_DATABASE_HOST'] = 'localhost'
         mysql.init_app(current_app)
         g.db=mysql.connect()
     return g.db

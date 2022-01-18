@@ -1,7 +1,7 @@
 from typing import List
 
 from pymysql import NULL
-from . import common
+import common
 # måste avkommentera raden nedan för att det ska funka på min dator. 
 #from types import NoneType
 from flask import (
@@ -10,7 +10,7 @@ from flask import (
 
 from flask.helpers import make_response
 import json
-from . import db
+import db
 
 bp = Blueprint('questions', __name__, url_prefix='/')
 
@@ -130,4 +130,4 @@ def last():
 
 @bp.route("/Admin-html/amdmin-log-in-html")
 def start():
-    return render_template("ad.html")    
+    return render_template("ad.html")
