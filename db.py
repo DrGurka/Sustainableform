@@ -10,7 +10,7 @@ def get_db():
         current_app.config['MYSQL_DATABASE_USER'] = 'flask'
         current_app.config['MYSQL_DATABASE_PASSWORD'] = '827ccb0eea8a706c4c34a16891f84e7b'
         current_app.config['MYSQL_DATABASE_DB'] = 'Sustainableform'
-        current_app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+        current_app.config['MYSQL_DATABASE_HOST'] = '92.205.13.101'
         mysql.init_app(current_app)
         g.db=mysql.connect()
     return g.db
