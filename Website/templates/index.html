@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}Sustainable form{% endblock %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block content %}
+        <!--Rubrik och input-->
+        <section class="text-center">
+                <div class="container-fluid">
+                    <h1 class="text-uppercase mt-3 mb-0">Sustainable Form</h1>
+                </div>
+
+                <div class="input-group container-fluid justify-content-center pt-5 pb-5 ">
+                    
+                        <div class="col-sm-4 col-lg-3">
+                            <form method="post" id='myForm' class="form-floating">
+                                <input type="text" class="form-control-lg form-control rounded-3 "  placeholder="Exempeltext" name="id-check">
+                                <label for="id-check control-label">Email:</label>
+                            </form>
+                        </div>
+                       
+                    </div>
+
+                        <div class="container-fluid pt-3">
+                            <button type='submit' id="identify" form="myForm" class="btn btn-secondary btn-lg">
+                                Första frågan <i class="bi bi-arrow-right"></i>
+
+                            </a>
+                        </div>
+                       
+                </div>
+        </section>
+
+        <!--Information sektion-->
+        <section class="pt-5 text-center justify-content-center">
+            <article class="bg" >
+                <h2 class="pt-4">Information om detta formulär</h2>
+                <div class="container w-50 text-start">
+                    <p class="pt-3 align-items-center text-wrap">
+                         Hej och tack för att du tar dig tiden att fylla i detta frågeformulär.<br>
+                         För att påbörja formuläret skall du använda den email-adress som denna länk kom via.<br>
+                         Om du har några övriga frågor är du varmt välkommen att kontakta mig per mail eller telefon.<br>
+                         Tack för din medverkan!
+
+                    </p>
+                    <p class="pt-3 pb-5 align-items-center text-wrap">
+                        Vänligen<br>
+                        Malin Hollgren - Project Manager<br>
+                        Helsingborg Convention and Event Bureau<br>
+                        Södergatan 1, 252 25 Helsingborg<br>
+                        Phone +46 730 – 55 04 48<br>
+                        <a class="text-secondary" href="https://www.helsingborgceb.com" target="_blank">Helsingborgceb.com</a><br>
+                        <a href="https://facebook.com"  target="_blank"><i class="bi bi-facebook fa-5x" style="font-size:50px;color:#4267B2;"></i></a> 
+                        <a href="https://www.Linkedin.com" target="_blank"><i class="bi bi-linkedin" style="font-size:50px;color:#0072b1;"></i></a>
+
+
+
+                   </p>
+                </div>
+                
+            </article>
+        </section>
+
+      
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+<section class="text-center">
+   
+        <h1 class="text-uppercase">Logga in</h1>
+
+    <div class="input-group container-fluid mt-4 col-lg-3 col-sm-3 justify-content-center ">
+        <div class="col col-lg-3 col-sm-3 form-floating">
+            <form method="post" id='myForm'> </form>
+            <input form="myForm" type="text" class="form-control-lg form-control rounded-3 " placeholder="Exempeltext" name="username">
+            <label for="username">Användarnamn</label>
+        </div>
+    </div>
+    <div class="input-group container-fluid mt-4 mb-1 justify-content-center">
+        <div class="col col-lg-3 col-sm-3 form-floating">
+            <input form="myForm" type="password" class="form-control-lg form-control rounded-3 " placeholder="Exempeltext" name="password">
+            <label for="password">Lösenord</label>
+        </div>
+    </div>   
+    
+    <div class="ps-2 pt-4">
+        <button type="submit" form="myForm" class="btn btn-secondary btn-lg">Logga in</i></button>
+    </div>
+</section>
+{% endblock %}

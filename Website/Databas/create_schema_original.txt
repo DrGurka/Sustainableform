@@ -1,0 +1,37 @@
+CREATE TABLE `types` (
+  `ID` int NOT NULL,
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE `users` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `Type_ID` int DEFAULT NULL,
+  `Answered` tinyint DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `typeid_idx` (`Type_ID`),
+  CONSTRAINT `typeid` FOREIGN KEY (`Type_ID`) REFERENCES `type` (`ID`)
+);
+
+CREATE TABLE `questions` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `Type_ID` int DEFAULT NULL,
+  `Question_text` longtext,
+  PRIMARY KEY (`ID`),
+  KEY `type_idx` (`Type_ID`),
+  CONSTRAINT `typek` FOREIGN KEY (`Type_ID`) REFERENCES `type` (`ID`)
+);
+
+
+CREATE TABLE `answers` (
+  `Value` varchar(45) NOT NULL,
+  `Question_ID` int DEFAULT NULL,
+  `User_id` int DEFAULT NULL,
+  `ID` int NOT NULL AUTO_INCREMENT,
+  UNIQUE KEY `index_UNIQUE` (`ID`),
+  KEY `qtype_idx` (`Question_ID`),
+  KEY `utype_idx` (`User_id`),
+  CONSTRAINT `qtype` FOREIGN KEY (`Question_ID`) REFERENCES `questions` (`ID`),
+  CONSTRAINT `utype` FOREIGN KEY (`User_id`) REFERENCES `user` (`ID`)
+);
+
+

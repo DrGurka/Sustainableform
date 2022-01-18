@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block content %}
+
+<section class="text-center h-100  ">
+    <!--Fråga Text-->
+    <div class="container-fluid justify-content-center mt-3 mb-5" id="fade3">
+        <p class="h4">
+            {{ questionText }}
+        </p>
+    </div>
+        {% block question %}{% endblock %}
+
+
+<!--Paginator med frågor-->    
+<footer class="container-fluid mt-5 "> 
+    <div class="row">
+    <ul class="pagination justify-content-center flex-wrap" id="totalPages">
+        {% if previousQuestion != -1 %}
+        <li disabled id="back" onclick="back({{ previousQuestion }})" class="page-item"><a class="page-link">Tillbaka</a>
+        {% endif %}
+        {% for index in range(totalQuestions) %}
+        {% if pageNumber == loop.index %}
+        <li class="page-item active"><a class="page-link" >{{ loop.index }}</a></li>
+        {% elif pageNumber > loop.index %}
+        <li class="page-item disabled"><a class="page-link" ><i class="bi bi-check"></i></a></li>
+        {% else %}
+        <li class="page-item disabled"><a class="page-link" >{{ loop.index }}</a></li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+
+</footer>
+
+<script src="{{url_for('static', filename='js/script-question.js')}}"></script>
+
+{% endblock %}

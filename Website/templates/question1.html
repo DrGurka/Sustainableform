@@ -1,0 +1,24 @@
+{% extends 'question-base.html' %}
+
+{% block question %}
+{% if questionType == 3 %}
+<div class="form-check-inline pb-3" id="fade1">
+    <input id="numberInput" type="number" min="0" pattern="[0-9]" class="form-control-lg ms-2 form-control rounded-3 " placeholder="Antal">
+    <button disabled type="submit" id="numberSubmit" onclick="nextQuest(this, {{ answerOptions[0].NextQuestion }})" name="{{ questionID }}" value="numberInput" class="btn mt-2 ms-2 btn-secondary col-lg-6 rounded">Nästa </button>
+</div> 
+{% elif questionType == 4 %}
+<div class="form-check-inline pb-3" id="fade1">
+  <input id="textInput" type="text" class="form-control-lg ms-2 form-control rounded-3 " placeholder="Länk">
+  <button type="submit" id="textSubmit" onclick="nextQuest(this, {{ answerOptions[0].NextQuestion }})" name="{{ questionID }}" value="textInput" class="btn mt-2 ms-2 btn-secondary col-lg-6 rounded">Nästa </button>
+</div> 
+
+{% else %}
+<!--Templet för nästan alla frågor-->
+<div class="list-group container-fluid col-sm-6 col-lg-2 pb-3 " id="fade2">
+  {% for answer in answerOptions %}
+    <button type="submit" onclick="nextQuest(this, {{ answer.NextQuestion }})" class="list-group-item ms-2 mb-2  btn-secondary rounded-pill" name="{{ questionID }}" value="{{ answer }}">{{ answer }}</button>
+  {% endfor %}
+  </div>
+</div>
+{% endif %}
+{% endblock %}

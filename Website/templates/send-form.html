@@ -1,0 +1,30 @@
+{% extends 'question-base.html' %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block question %}
+
+        <!--Rubrik och input-->
+        <section class="text-center">
+                <div class="container-fluid">
+                    <h1 class="text-uppercase mb-0">Tack för att du <br> slutförde formuläret</h1>
+                </div>
+
+                <div class="container-fluid mt-3">
+                    <section class="text-center">
+                        <div class="container-fluid mt-5 " id="btn1">
+                            <button onclick="sendCookie()" class="btn btn-secondary btn-lg mb-5">
+                                Skicka in <i class="bi bi-check2"></i>
+                            </button>
+                            
+                        </div>
+                </section> 
+                </div>
+        </section>
+
+         
+        </footer>
+        <script src="{{url_for('static', filename='js/script-question.js')}}"></script>
+       {% endblock %}

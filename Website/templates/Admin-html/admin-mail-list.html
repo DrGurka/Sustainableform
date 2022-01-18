@@ -1,0 +1,51 @@
+{% extends 'Admin-html/admin-base.html' %}
+
+{% block content %}
+
+<div class="container-fluid w-50">
+    <div class="row g-3 justify-content-center">
+        <div class="col">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Företagsnamn" aria-label="Företagsnamn">
+                <select class="form-select" id="inputBranch">
+                    <option selected>Välj branch...</option>
+                    <option value="1">Hotell</option>
+                    <option value="2">Resturang</option>
+                    <option value="3">Resebolag</option>
+                  </select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Email" aria-label="Email">
+                <button class="btn btn-outline-secondary" type="button" id="copyLink" data-bs-toggle="tooltip" data-bs-placement="top" title="Kopiera inbjudnings länk">Kopiera länk</button>
+            </div>
+        </div>
+    </div>
+    <div class="row g-3 justify-content-center">
+        <div class="col">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Företagsnamn" aria-label="Företagsnamn">
+                <select class="form-select" id="inputBranch">
+                    <option selected>Välj branch...</option>
+                    <option value="1">Hotell</option>
+                    <option value="2">Resturang</option>
+                    <option value="3">Resebolag</option>
+                  </select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Email" aria-label="Email">
+                <button class="btn btn-outline-secondary" type="button" id="copyLink" data-bs-toggle="tooltip" data-bs-placement="top" title="Kopiera inbjudnings länk">Kopiera länk</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-primary" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Lägg till ett nytt företag">Lägg till</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

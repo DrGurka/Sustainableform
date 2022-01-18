@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+
+<!--Rubrik-->
+<section class="container-fluid text-center">
+        <h1 class="h1">Sammanställning för {{ name }}</h1>
+      {% for row in answers %}
+        <p class="mt-5">{{row[1]}}</p>
+        <p>Svar: {{row[2]}}</p>
+        <hr>
+    {% endfor %}
+    </div>
+
+
+
+
+
+{% endblock %}
