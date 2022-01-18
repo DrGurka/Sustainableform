@@ -78,8 +78,12 @@ def main():
             session['user_id'] = user[0]
 
             questions = get_questions(user[1])
-            session["questions"] = json.dumps(questions, cls=QuestionEncoder)
-            session["currentQuestion"] = questions[0].ID
+            if len(questions) != 0: 
+                session["questions"] = json.dumps(questions, cls=QuestionEncoder)
+                session["currentQuestion"] = questions[0].ID
+            else:
+                error = "Index out of range"
+                flash(error, 'error')
 
             response = make_response(redirect(url_for('questions.questionMain')))
             response.set_cookie('answers', '', expires=0)
