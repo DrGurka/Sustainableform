@@ -138,6 +138,7 @@ def adminLoggedIn():
 
 
         if(request.form['submit']=="addUser"):
+            global branch
            
             stmt="INSERT INTO Users (Type_ID, Email, Name) VALUES (%s, %s, %s)"
             print(stmt)
@@ -184,7 +185,7 @@ def adminLoggedIn():
                 flash("Lösenordsbytet lyckades.", 'sucess')
             else :
                 error="Lösenorden matchade ej"
-                flash(error,'')
+                flash(error,'error')
     
         # Om admin sökt en enskild rapport 
         if(request.form['submit'] == "findReport"):
