@@ -104,7 +104,7 @@
       
             <!-- Modal body  sökfält-->
             <div class="modal-body">
-              <p>Sök efter användarens exakta namn</p>
+              <p>Sök efter användarens exakta namn(inte email)</p>
               <form method="post">
                 <div class="input-group rounded">
                     <input id ="livebox" type="text" name="text"  class="form-control rounded" placeholder="Search" aria-label="Search"
@@ -128,7 +128,7 @@
     
           <!-- Modal Header -->
           <div class="modal-header">
-            <h4 class="modal-title">Lägg till användare</h4>
+            <h4 class="modal-title">Lägg till/Ta bort användare(endast email vid borttagning)</h4>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
     
@@ -147,7 +147,7 @@
                       <option selected value=0>Branch</option>
                       <option value="Hotell">Hotell</option>
                       <option value="Restaurang">Restaurang</option>
-                      <option value="Anläggning">Anläggningar</option>
+                      <option value="Anläggning">Evenemangshall</option>
                       <option value="Byrå">Byrå</option>
                     </select>
                     <button disabled id="addUser" type="submit" name="submit" value="addUser" class="btn btn-secondary mt-2 rounded-pill" >Lägg till</button>

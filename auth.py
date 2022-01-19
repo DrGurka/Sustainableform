@@ -157,6 +157,8 @@ def adminLoggedIn():
                     branch = 1
                 elif(request.form['branch'] == "Byrå"):
                     branch = 3
+                elif(request.form['branch'] == "Evenemangshall"):
+                    branch = 4
                 
                 cursor.execute(stmt, (branch, request.form['adress'], name))
                 conn.commit()
