@@ -56,8 +56,16 @@ def ifPresent(value):
         return True
     else:
         return False
-        
 
+def ifPresentEmail(value):
+    conn = db.get_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Users WHERE Email = (%s)", (value))
+    if(cursor.rowcount > 0):
+        return True
+    else:
+        return False
+   
 @bp.route("/admin", methods=('GET', 'POST'))
 def login():
     if request.method == 'POST':
@@ -126,19 +134,21 @@ def adminLoggedIn():
             stmt="DELETE FROM Users WHERE Email=(%s)"
             conn=db.get_db()
             cursor=conn.cursor()
-
             try:
+                if(ifPresentEmail(request.form['adress'])):
                     cursor.execute(stmt, request.form['adress'])
                     conn.commit()
                     error="Användaren: " + request.form['adress'] + " togs bort"
                     flash(error, 'sucess')
-            except pymysql.IntegrityError :
+                else:
+                    error="Användaren: " + request.form['adress'] + " finns inte i systemet"
+                    flash(error, 'error')
+            except pymysql.IntegrityError:
                 error="Användaren: " + request.form['adress'] + " finns inte i systemet"
                 flash(error, 'error')
 
 
         if(request.form['submit']=="addUser"):
-            global branch
            
             stmt="INSERT INTO Users (Type_ID, Email, Name) VALUES (%s, %s, %s)"
             print(stmt)
@@ -177,7 +187,7 @@ def adminLoggedIn():
     
         if(request.form['submit']=="changePassword"):
             if(request.form['pass1']==request.form['pass2']):
-                stmt="UPDATE Admin SET Password = %s WHERE (Username = %s)"
+                stmt="UPDATE Admins SET Password = %s WHERE (Username = %s)"
                 conn=db.get_db()
                 cursor=conn.cursor()
                 cursor.execute(stmt, (request.form['pass1'], session['user_id']))
