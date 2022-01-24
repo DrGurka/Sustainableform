@@ -4,14 +4,10 @@ from flask import current_app, g
 from flask.cli import with_appcontext
 import click
 
+mysql=MySQL()
+
 def get_db():
     if'db' not in g:
-        mysql=MySQL()
-        current_app.config['MYSQL_DATABASE_USER'] = 'flask'
-        current_app.config['MYSQL_DATABASE_PASSWORD'] = '827ccb0eea8a706c4c34a16891f84e7b'
-        current_app.config['MYSQL_DATABASE_DB'] = 'Sustainableform'
-        current_app.config['MYSQL_DATABASE_HOST'] = '92.205.13.101'
-        mysql.init_app(current_app)
         g.db=mysql.connect()
     return g.db
 
@@ -39,3 +35,4 @@ def init_db_command():
 def init_app(app):
     app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)
+    mysql.init_app(app)
