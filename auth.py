@@ -17,6 +17,18 @@ bp = Blueprint('auth', __name__, url_prefix='/')
 
 #hej
 
+@bp.route("/findReport", methods=('GET', 'POST'))
+def findReport():
+    if(ifPresent(request.form.get('text')) != False):
+        session['name']=request.form.get('text')
+        return redirect(url_for('auth.specificReport'))   
+    else:
+        error="Användaren: " + request.form.get('text') + " finns inte"
+        flash(error, 'error')
+        return redirect(url_for('auth.adminLoggedIn'))
+
+
+# Specifik rapport
 @bp.route("/specificReport", methods= ('POST', 'GET'))
 def specificReport():
     if (request.method == 'GET'):
@@ -32,7 +44,20 @@ def specificReport():
         cursor.execute(stmt, (session['name'], session['name']))  
         answers = cursor.fetchall()
         return render_template("Admin-html/specificReport.html", name=session['name'], answers=answers)
+        
 
+# Fullständig rapport för branscher
+@bp.route("/fullReport", methods=('GET', 'POST'))
+def fullReport():
+
+    branches=["Restaurang", "Hotell", "Byrå", "Evenemangshall"]
+
+    if(request.form['submit'] in branches):
+        session['branch']=request.form['submit']
+        return redirect(url_for("auth.reportTemplate"))
+
+
+# Rapport brancher
 @bp.route("/reportTemplate", methods= ('POST', 'GET'))
 def reportTemplate():
     if (request.method == 'GET'):
@@ -65,7 +90,9 @@ def ifPresentEmail(value):
         return True
     else:
         return False
-   
+        
+
+#Logga in
 @bp.route("/admin", methods=('GET', 'POST'))
 def login():
     if request.method == 'POST':
@@ -90,65 +117,29 @@ def login():
 
     return render_template('Admin-html/admin-log-in.html')
 
+# Ta bort alla inrapporterade svar
+@bp.route("/delete", methods=('GET', 'POST'))
+def delete():
+    stmt="DELETE FROM Answers"
+    conn=db.get_db()
+    cursor=conn.cursor()
+    cursor.execute(stmt)
+    conn.commit()
+    error="Alla svar från användarna togs bort"
+    flash(error, 'success')
+    return redirect(url_for('auth.adminLoggedIn'))
 
-# Checks if admin is logged in. If not - /admin is rendered
-@bp.route("/adminIndex", methods=('GET', 'POST'))
-def adminLoggedIn():
-    if request.method == 'GET':
-        # Detta måste ändras, finns nog bättre sätt att kolla på om man är admin. Kanske en checksum eller något
-        if session.get('user_id') is None or session['user_id'] != 'Admin':
-            session.clear()
-            return redirect(url_for('auth.login'))
+# Logga in och ut
+@bp.route("/logOut", methods=('GET', 'POST'))
+def logOut():
+    session.clear()
+    return redirect(url_for('auth.login'))
 
-    if request.method == 'POST':
+#För att lägga till eller ta bort användare
+@bp.route("/changeUser", methods=('GET', 'POST'))
+def changeUser():
 
-        print(request.form.get('text'))
-
-       # if(request.form.get('text') != " " and request.form.get('text') != None):
-        #    searchbox = request.form.get("text")
-         #   conn=db.get_db()
-          #  cursor=conn.cursor()
-           # stmt= "select Name from Users where Name LIKE '{}%' order by Name".format(searchbox)
-            #cursor.execute(stmt)
-            #if(cursor.rowcount < 5):
-             #   result = cursor.fetchall()
-              #  return jsonify(result)
-
-
-        if(request.form['submit']=="logOut"):
-            print("clearing session")
-            session.clear()
-            return redirect(url_for('auth.login'))
-
-        if(request.form['submit'] == "deleteAnswers"):
-            stmt="DELETE FROM Answers"
-            conn=db.get_db()
-            cursor=conn.cursor()
-            cursor.execute(stmt)
-            conn.commit()
-            error="Alla svar från användarna togs bort"
-            flash(error, 'success')
-
-        if(request.form['submit'] == "removeUser"):
-           
-            stmt="DELETE FROM Users WHERE Email=(%s)"
-            conn=db.get_db()
-            cursor=conn.cursor()
-            try:
-                if(ifPresentEmail(request.form['adress'])):
-                    cursor.execute(stmt, request.form['adress'])
-                    conn.commit()
-                    error="Användaren: " + request.form['adress'] + " togs bort"
-                    flash(error, 'sucess')
-                else:
-                    error="Användaren: " + request.form['adress'] + " finns inte i systemet"
-                    flash(error, 'error')
-            except pymysql.IntegrityError:
-                error="Användaren: " + request.form['adress'] + " finns inte i systemet"
-                flash(error, 'error')
-
-
-        if(request.form['submit']=="addUser"):
+    if(request.form['submit']=="addUser"):
            
             stmt="INSERT INTO Users (Type_ID, Email, Name) VALUES (%s, %s, %s)"
             print(stmt)
@@ -159,7 +150,6 @@ def adminLoggedIn():
                     name = None
                 else:    
                     name = request.form['name']
-
                 if(request.form['branch'] == 0):
                     branch = None
                 elif(request.form['branch'] == "Restaurang"):
@@ -174,37 +164,70 @@ def adminLoggedIn():
                 cursor.execute(stmt, (branch, request.form['adress'], name))
                 conn.commit()
                 flash("Användaren: " + request.form['adress'] + " har lagts till i systemet", 'success')
-            except pymysql.IntegrityError as e:
+            except pymysql.IntegrityError:
                 error="Användaren:  " + request.form['adress'] + " finns redan i systemet"
                 flash(error, 'error') 
-            finally:
-                cursor.close
+            
+            return redirect(url_for('auth.adminLoggedIn'))
 
-        branches=["Restaurang", "Hotell", "Byrå", "Evenemangshall"]
-        if(request.form['submit'] in branches):
-            session['branch']=request.form['submit']
-            return redirect(url_for("auth.reportTemplate"))
-    
-        if(request.form['submit']=="changePassword"):
-            if(request.form['pass1']==request.form['pass2']):
-                stmt="UPDATE Admins SET Password = %s WHERE (Username = %s)"
-                conn=db.get_db()
-                cursor=conn.cursor()
-                cursor.execute(stmt, (request.form['pass1'], session['user_id']))
+    else:          
+        stmt="DELETE FROM Users WHERE Email=(%s)"
+        conn=db.get_db()
+        cursor=conn.cursor()
+        try:
+            if(ifPresentEmail(request.form['adress'])):
+                cursor.execute(stmt, request.form['adress'])
                 conn.commit()
-                flash("Lösenordsbytet lyckades.", 'sucess')
-            else :
-                error="Lösenorden matchade ej"
-                flash(error,'error')
-    
-        # Om admin sökt en enskild rapport 
-        if(request.form['submit'] == "findReport"):
-            if(ifPresent(request.form.get('text')) != False):
-                session['name']=request.form.get('text')
-                return redirect(url_for('auth.specificReport'))   
+                error="Användaren: " + request.form['adress'] + " togs bort"
+                flash(error, 'sucess')
             else:
-                error="Användaren: " + request.form.get('text') + " finns inte"
+                error="Användaren: " + request.form['adress'] + " finns inte i systemet"
+                flash(error, 'error')
+        except pymysql.IntegrityError:
+                error="Användaren: " + request.form['adress'] + " finns inte i systemet"
                 flash(error, 'error')
 
+    return redirect(url_for('auth.adminLoggedIn'))
 
+
+@bp.route("/changePassword", methods=('GET', 'POST'))
+def changePassword():
+    if(request.form['pass1']==request.form['pass2']):
+        stmt="UPDATE Admins SET Password = %s WHERE (Username = %s)"
+        conn=db.get_db()
+        cursor=conn.cursor()
+        cursor.execute(stmt, (request.form['pass1'], session['user_id']))
+        conn.commit()
+        flash("Lösenordsbytet lyckades.", 'sucess')
+    else :
+        error="Lösenorden matchade ej"
+        flash(error,'error')
+        
+    return redirect(url_for('auth.adminLoggedIn'))
+
+
+
+# Checks if admin is logged in. If not - /admin is rendered
+@bp.route("/adminIndex", methods=('GET', 'POST'))
+def adminLoggedIn():
+    if request.method == 'GET':
+        # Detta måste ändras, finns nog bättre sätt att kolla på om man är admin. Kanske en checksum eller något
+        if session.get('user_id') is None or session['user_id'] != 'Admin':
+            session.clear()
+            return redirect(url_for('auth.login'))
+
+    if request.method == 'POST':
+
+        #Sökfunktion för specifika användare
+        if(request.form.get('text') != " " and request.form.get('text') != None):
+            searchbox = request.form.get("text")
+            conn=db.get_db()
+            cursor=conn.cursor()
+            stmt= "select Name from Users where Name LIKE '{}%' order by Name".format(searchbox)
+            cursor.execute(stmt)
+            if(cursor.rowcount < 5):
+                result = cursor.fetchall()
+                return jsonify(result)
+                
     return render_template("Admin-html/admin-index.html")
+
