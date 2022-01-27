@@ -36,7 +36,7 @@ def specificReport():
                 where Answers.Question_ID = Questions.ID and
                 Answers.User_ID = (
                 Select Users.ID from Users
-                where Users.Name = %s) and Users.Name = %s;"""
+                where Users.Name = %s) and Users.Name = %s order by Answers.Question_ID;"""
 
         conn=db.get_db()
         cursor=conn.cursor() 
@@ -63,12 +63,12 @@ def reportTemplate():
     if (request.method == 'GET'):
         conn=db.get_db()
         cursor=conn.cursor()
-        stmt="""SELECT count(*), Answers.Answer, Questions.Question_text FROM Answers
+        stmt="""SELECT count(*), Answers.Answer, Questions.Question_text, Answers.Question_ID FROM Answers
         LEFT JOIN Users ON User_ID=Users.ID
         LEFT JOIN Types on Types.ID=Type_ID
         LEFT JOIN Questions on Questions.ID=Question_ID
         WHERE Industry=%s
-        group by Question_text, Answer"""
+        group by Question_text, Answer order by Answers.Question_ID"""
         cursor.execute(stmt, session['branch'])
         return render_template("Admin-html/reportTemplate.html", branch=session['branch'], answers=cursor.fetchall())
 
@@ -76,7 +76,7 @@ def reportTemplate():
 @bp.route("/showUsers", methods= ('POST', 'GET'))
 def showUsers():
     if (request.method == 'POST'):
-        stmt="SELECT * FROM Users WHERE Type_ID = (%s)"
+        stmt="SELECT Users.Name, Users.Email, Answers.User_ID FROM Users LEFT JOIN Answers ON Users.ID = Answers.User_ID WHERE Users.Type_ID=(%s) group by Users.Name order by Users.Name"
         conn=db.get_db()
         cursor=conn.cursor()
         if(request.form['branch'] == 0):

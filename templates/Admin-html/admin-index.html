@@ -13,56 +13,21 @@
       <h1 class="h1">Admin</h1>
   </div>
 
-
+<!--Dropdown meny-->
 <div class="col">
   <div class="dropdown">
       <button type="button" class="btn btn-secondary rounded-circle " data-bs-toggle="dropdown">
           <i class="bi bi-gear-fill"></i>
         </button>
-        <ul class="dropdown-menu rounded-3 ">
-          <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#password-modal">Byt lösenord</a></li>
+        <ul class="dropdown-menu rounded-3 "> 
+          <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#list-users">Lista alla aktörer</a></li>
           <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#add-user">Lägg till/ta bort användare</a></li>
           <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#delete-answers">Rensa slutanvändarnas svar</a></li>
-          <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#list-users">Se alla aktörer</a></li>
+          <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#password-modal">Byt lösenord</a></li>
         </ul>
   </div>
       </div>
-      <!--Modal för byta lösenord-->
-      <div class="modal fade" id="password-modal">
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-        
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Byt lösenord</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-              </div>
-        
-              <!-- Modal body -->
-              <div class="modal-body">
-                  <section class="mb-5 text-center">
-
-                      <p>Välj ett nytt lösenord</p>
-                    
-                      <form action="/changePassword" method="post">
-                    
-                        <div class="form-floating pb-3">
-                          <input name="pass1" type="password" id="newPass" class="form-control" placeholder="Exempeltext">
-                          <label data-error="wrong" data-success="right" for="newPass">Nytt lösenord</label>
-                        </div>
-                    
-                        <div class="form-floating pb-3">
-                          <input name="pass2" type="password" id="newPassConfirm" class="form-control" placeholder="Exempeltext">
-                          <label data-error="wrong" data-success="right" for="newPassConfirm">Upprepa nytt lösenord</label>
-                        </div>
-                    
-                        <button type="submit" name="submit" value="changePassword" class="btn btn-secondary mb-4">Byt lösenord</button>
-                    
-                      </form>
-                    </section>
-              </div>
-</section>
-
+     
 <!--Knappar för samtliga funktioner-->
 <section class="container-fluid text-center">
 <form method="post" action = "/fullReport">
@@ -91,6 +56,44 @@
       <button type="submit" name="submit" value="logOut" class="btn btn-secondary col-lg-3 btn-lg rounded-pill">Logga ut</button>
     </form>
   </div>
+
+  <!--ALLA MODAL NEDANFÖR-->
+
+   <!--Modal för byta lösenord-->
+   <div class="modal fade" id="password-modal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Byt lösenord</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+            <section class="mb-5 text-center">
+
+                <p>Välj ett nytt lösenord</p>
+              
+                <form action="/changePassword" method="post">
+              
+                  <div class="form-floating pb-3">
+                    <input name="pass1" type="password" id="newPass" class="form-control" placeholder="Exempeltext">
+                    <label data-error="wrong" data-success="right" for="newPass">Nytt lösenord</label>
+                  </div>
+              
+                  <div class="form-floating pb-3">
+                    <input name="pass2" type="password" id="newPassConfirm" class="form-control" placeholder="Exempeltext">
+                    <label data-error="wrong" data-success="right" for="newPassConfirm">Upprepa nytt lösenord</label>
+                  </div>
+              
+                  <button type="submit" name="submit" value="changePassword" class="btn btn-secondary mb-4">Byt lösenord</button>
+              
+                </form>
+              </section>
+        </div>
+</section>
 
    <!--Modal för söka efter specifik rapport-->
   <div class="modal fade" id="search-modal">
@@ -167,7 +170,7 @@
   
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Lista med aktörer</h4>
+          <h4 class="modal-title">Se en lista samtliga aktörer och om de har svarat</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
   
