@@ -17,6 +17,8 @@ bp = Blueprint('auth', __name__, url_prefix='/')
 
 #hej
 
+branches=["Restaurang", "Hotell", "Byrå", "Evenemangshall"]
+
 @bp.route("/findReport", methods=('GET', 'POST'))
 def findReport():
     if(ifPresent(request.form.get('text')) != False):
@@ -50,8 +52,6 @@ def specificReport():
 @bp.route("/fullReport", methods=('GET', 'POST'))
 def fullReport():
 
-    branches=["Restaurang", "Hotell", "Byrå", "Evenemangshall"]
-
     if(request.form['submit'] in branches):
         session['branch']=request.form['submit']
         return redirect(url_for("auth.reportTemplate"))
@@ -79,8 +79,10 @@ def showUsers():
         stmt="SELECT Users.Name, Users.Email, Answers.User_ID FROM Users LEFT JOIN Answers ON Users.ID = Answers.User_ID WHERE Users.Type_ID=(%s) group by Users.Name order by Users.Name"
         conn=db.get_db()
         cursor=conn.cursor()
-        if(request.form['branch'] == 0):
-            branch = None
+        if(request.form['branch'] not in branches):
+            error = "Du måste ange en giltig branch"
+            flash(error, 'error')
+            return redirect(url_for('auth.adminLoggedIn'))
         elif(request.form['branch'] == "Restaurang"):
             branch = 2
         elif(request.form['branch'] == "Hotell"):
@@ -173,8 +175,10 @@ def changeUser():
                     name = None
                 else:    
                     name = request.form['name']
-                if(request.form['branch'] == 0):
-                    branch = None
+                if(request.form['branch'] not in branches):
+                    error = "Du måste ange en giltig branch"
+                    flash(error, 'error')
+                    return redirect(url_for('auth.adminLoggedIn'))
                 elif(request.form['branch'] == "Restaurang"):
                     branch = 2
                 elif(request.form['branch'] == "Hotell"):
