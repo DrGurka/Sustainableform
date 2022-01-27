@@ -248,9 +248,8 @@ def adminLoggedIn():
             cursor=conn.cursor()
             stmt= "select Name from Users where Name LIKE '{}%' order by Name".format(searchbox)
             cursor.execute(stmt)
-            if(cursor.rowcount < 10):
-                result = cursor.fetchall()
-                return jsonify(result)
+            result = cursor.fetchall()
+            return jsonify(result)
                 
     return render_template("Admin-html/admin-index.html")
 
