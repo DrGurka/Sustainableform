@@ -59,41 +59,6 @@
 
   <!--ALLA MODAL NEDANFÖR-->
 
-   <!--Modal för byta lösenord-->
-   <div class="modal fade" id="password-modal">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-  
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Byt lösenord</h4>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-  
-        <!-- Modal body -->
-        <div class="modal-body">
-            <section class="mb-5 text-center">
-
-                <p>Välj ett nytt lösenord</p>
-              
-                <form action="/changePassword" method="post">
-              
-                  <div class="form-floating pb-3">
-                    <input name="pass1" type="password" id="newPass" class="form-control" placeholder="Exempeltext">
-                    <label data-error="wrong" data-success="right" for="newPass">Nytt lösenord</label>
-                  </div>
-              
-                  <div class="form-floating pb-3">
-                    <input name="pass2" type="password" id="newPassConfirm" class="form-control" placeholder="Exempeltext">
-                    <label data-error="wrong" data-success="right" for="newPassConfirm">Upprepa nytt lösenord</label>
-                  </div>
-              
-                  <button type="submit" name="submit" value="changePassword" class="btn btn-secondary mb-4">Byt lösenord</button>
-              
-                </form>
-              </section>
-        </div>
-</section>
 
    <!--Modal för söka efter specifik rapport-->
   <div class="modal fade" id="search-modal">
@@ -220,6 +185,42 @@
         </div>
       </div>
     </div>
+
+     <!--Modal för byta lösenord-->
+   <div class="modal fade" id="password-modal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Byt lösenord</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+            <section class="mb-5 text-center">
+
+                <p>Välj ett nytt lösenord</p>
+              
+                <form action="/changePassword" method="post">
+              
+                  <div class="form-floating pb-3">
+                    <input name="pass1" type="password" id="newPass" class="form-control" placeholder="Exempeltext">
+                    <label data-error="wrong" data-success="right" for="newPass">Nytt lösenord</label>
+                  </div>
+              
+                  <div class="form-floating pb-3">
+                    <input name="pass2" type="password" id="newPassConfirm" class="form-control" placeholder="Exempeltext">
+                    <label data-error="wrong" data-success="right" for="newPassConfirm">Upprepa nytt lösenord</label>
+                  </div>
+              
+                  <button type="submit" name="submit" value="changePassword" class="btn btn-secondary mb-4">Byt lösenord</button>
+              
+                </form>
+              </section>
+        </div>
+
 </section>
 
 
