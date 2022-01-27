@@ -9,9 +9,9 @@
     <h1 class="h1">Användare inom {{ name }}</h1>
     <hr>
     {%for row in answers%}
-    <p>{{row[1]}}</p>
-    <p>Email: {{row[2]}} </p>
-    {% if row[3] is not none %}
+    <p>{{row[0]}}</p>
+    <p>Email: {{row[1]}} </p>
+    {% if row[2] is not none %}
     <p>Svarat : Ja</p>
     {% else %}
     <p>Svarat : Nej</p>

@@ -11,11 +11,11 @@ $(document).ready(function(){
            url:"/adminIndex",
            data:{text:$("#livebox").val()},
            success:function(res){
-               var data = "<ul class =\"list-group\">";
+               var data = "<datalist id=\"options\">";
                $.each(res,function(index,value){
-                   data += "<li class =\"list-group-item\">" + value + "</li>";
+                   data += "<option value=\"" + value + "\">" + value;
                });
-               data += "</ul>";
+               data += "</datalist>";
                $("#datalist").html(data);
            }
        });
