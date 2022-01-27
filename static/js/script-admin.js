@@ -2,7 +2,7 @@ const email = document.getElementById("email");
 const username = document.getElementById("name");
 const branch = document.getElementById("branch");
 
-/*
+
 $(document).ready(function(){
    $("#livebox").on("input",function(e){
        $("#datalist").empty();
@@ -21,7 +21,7 @@ $(document).ready(function(){
        });
    });
 });
-*/
+
 
 
 window.addEventListener('input', function(){  
