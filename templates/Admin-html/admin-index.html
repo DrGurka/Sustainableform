@@ -23,6 +23,7 @@
           <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#password-modal">Byt lösenord</a></li>
           <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#add-user">Lägg till/ta bort användare</a></li>
           <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#delete-answers">Rensa slutanvändarnas svar</a></li>
+          <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#list-users">Se alla aktörer</a></li>
         </ul>
   </div>
       </div>
@@ -154,6 +155,39 @@
                   <button disabled id="removeUser" type="submit" name="submit" value="removeUser" class="btn btn-danger mt-2 rounded-pill" >Ta bort</button>
                 </form>
               </section>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!--Modal Lista användare-->
+   <div class="modal fade" id="list-users">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Lista med aktörer</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+            <section class="mb-5 text-center">
+                <form method="post" action="/showUsers">
+
+                  <!--Radio buttons for den nya användarens branch -->
+                  <select id="branch" name="branch" class="form-select mt-2">
+                    <option selected value=0>Branch</option>
+                    <option value="Hotell">Hotell</option>
+                    <option value="Restaurang">Restaurang</option>
+                    <option value="Evenemangshall">Evenemangshall</option>
+                    <option value="Byrå">Byrå</option>
+                  </select>
+                  <button type="submit" name="submit" class="btn btn-secondary mt-2 rounded-pill" >Visa aktörer</button>
+                  
+                </form>
+          </section>
         </div>
       </div>
     </div>

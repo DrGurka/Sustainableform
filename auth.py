@@ -71,6 +71,29 @@ def reportTemplate():
         group by Question_text, Answer"""
         cursor.execute(stmt, session['branch'])
         return render_template("Admin-html/reportTemplate.html", branch=session['branch'], answers=cursor.fetchall())
+
+#Lista användare inom olika brancher
+@bp.route("/showUsers", methods= ('POST', 'GET'))
+def showUsers():
+    if (request.method == 'POST'):
+        stmt="SELECT * FROM Users WHERE Type_ID = (%s)"
+        conn=db.get_db()
+        cursor=conn.cursor()
+        if(request.form['branch'] == 0):
+            branch = None
+        elif(request.form['branch'] == "Restaurang"):
+            branch = 2
+        elif(request.form['branch'] == "Hotell"):
+            branch = 1
+        elif(request.form['branch'] == "Byrå"):
+            branch = 3
+        elif(request.form['branch'] == "Evenemangshall"):
+            branch = 4
+                
+    cursor.execute(stmt, (branch))
+    answers = cursor.fetchall()
+
+    return render_template("Admin-html/admin-users.html", name=request.form['branch'], answers=answers)
         
 
 def ifPresent(value):
@@ -225,7 +248,7 @@ def adminLoggedIn():
             cursor=conn.cursor()
             stmt= "select Name from Users where Name LIKE '{}%' order by Name".format(searchbox)
             cursor.execute(stmt)
-            if(cursor.rowcount < 5):
+            if(cursor.rowcount < 10):
                 result = cursor.fetchall()
                 return jsonify(result)
                 
